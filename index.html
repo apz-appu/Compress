@@ -1,0 +1,381 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Image Compressor</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="container">
+    <div class="header">
+      <div class="logo-icon">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+          <rect width="32" height="32" rx="8" fill="#C62828"/>
+          <path d="M8 10h16M8 16h10M8 22h13" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+          <circle cx="24" cy="22" r="4" fill="white"/>
+          <path d="M22.5 22l1 1 2-2" stroke="#C62828" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div>
+        <h1>Image Compressor</h1>
+        <p class="subtitle">Reduce file size without losing quality</p>
+      </div>
+    </div>
+
+    <div class="upload-zone" id="uploadZone" onclick="document.getElementById('imageInput').click()">
+      <input type="file" id="imageInput" accept="image/*" hidden>
+      <div class="upload-icon">
+        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+          <path d="M24 8v24M14 18l10-10 10 10" stroke="#C62828" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M8 36h32" stroke="#444" stroke-width="2.5" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <p class="upload-text">Click to choose an image</p>
+      <p class="upload-hint">Supports JPEG, PNG, WEBP, GIF</p>
+      <div class="file-name" id="fileName"></div>
+    </div>
+
+    <div class="quality-section">
+      <div class="quality-label">
+        <span>Compression Quality</span>
+        <span class="quality-value" id="value">80<span class="pct">%</span></span>
+      </div>
+      <input type="range" id="quality" min="10" max="100" value="80">
+      <div class="quality-hints">
+        <span>Max compression</span>
+        <span>Best quality</span>
+      </div>
+    </div>
+
+    <button class="compress-btn" onclick="compressImage()">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+        <path d="M10 3v10M6 9l4 4 4-4" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M3 15h14" stroke="white" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+      Compress Image
+    </button>
+
+    <div class="result-card" id="resultCard">
+      <div class="result-row">
+        <div class="result-item">
+          <span class="result-label">Original</span>
+          <span class="result-size" id="originalSize">—</span>
+        </div>
+        <div class="result-arrow">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M5 12h14M13 6l6 6-6 6" stroke="#C62828" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="result-item">
+          <span class="result-label">Compressed</span>
+          <span class="result-size highlight" id="compressedSize">—</span>
+        </div>
+      </div>
+      <div class="saving-badge" id="savingBadge"></div>
+      <a id="download" class="download-btn">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+          <path d="M9 2v10M5 8l4 4 4-4" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M2 14h14" stroke="white" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        Download Compressed
+      </a>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html> -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FilePress — Compressor</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="app">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="brand">
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+        <rect width="28" height="28" rx="7" fill="#C62828"/>
+        <path d="M7 9h14M7 14h9M7 19h11" stroke="white" stroke-width="2.2" stroke-linecap="round"/>
+        <circle cx="21" cy="19" r="3.5" fill="white"/>
+        <path d="M19.8 19l.9.9 1.7-1.7" stroke="#C62828" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span class="brand-name">FilePress</span>
+    </div>
+
+    <nav class="nav">
+      <button class="nav-item active" data-tab="image" onclick="switchTab('image')">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+          <rect x="2" y="2" width="14" height="14" rx="3" stroke="currentColor" stroke-width="1.6"/>
+          <circle cx="6.5" cy="6.5" r="1.5" fill="currentColor"/>
+          <path d="M2 12l4-4 3 3 2-2 5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span>Image</span>
+      </button>
+
+      <button class="nav-item" data-tab="video" onclick="switchTab('video')">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+          <rect x="1" y="4" width="11" height="10" rx="2" stroke="currentColor" stroke-width="1.6"/>
+          <path d="M12 7l5-2v8l-5-2V7z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+        </svg>
+        <span>Video</span>
+      </button>
+
+      <button class="nav-item" data-tab="pdf" onclick="switchTab('pdf')">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+          <path d="M4 2h7l5 5v9a1 1 0 01-1 1H4a1 1 0 01-1-1V3a1 1 0 011-1z" stroke="currentColor" stroke-width="1.6"/>
+          <path d="M11 2v5h5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+          <path d="M6 10h6M6 13h4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+        </svg>
+        <span>PDF</span>
+      </button>
+    </nav>
+
+    <div class="sidebar-footer">
+      <p>Browser-based compression.<br>Files never leave your device.</p>
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <main class="main">
+
+    <!-- IMAGE TAB -->
+    <section class="tab-panel active" id="tab-image">
+      <div class="panel-header">
+        <h2>Image Compression</h2>
+        <p>Compress JPEG, PNG, WEBP images with quality control</p>
+      </div>
+
+      <div class="upload-zone" id="imgUploadZone">
+        <input type="file" id="imageInput" accept="image/*" hidden>
+        <div class="upload-icon">
+          <svg width="44" height="44" viewBox="0 0 44 44" fill="none">
+            <path d="M22 8v20M13 17l9-9 9 9" stroke="#C62828" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M6 34h32" stroke="#555" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <p class="upload-text">Drop image here or <span class="link">browse</span></p>
+        <p class="upload-hint">JPEG · PNG · WEBP · GIF</p>
+        <div class="file-pill" id="imgFileName"></div>
+      </div>
+
+      <div class="image-preview-wrap" id="imgPreviewWrap">
+        <div class="preview-box">
+          <span class="preview-label">Original</span>
+          <img id="imgOriginal" src="" alt="Original">
+        </div>
+        <div class="preview-box">
+          <span class="preview-label">Compressed</span>
+          <img id="imgCompressed" src="" alt="Compressed">
+        </div>
+      </div>
+
+      <div class="controls-row">
+        <div class="quality-block">
+          <div class="quality-label">
+            <span>Quality</span>
+            <span class="qval" id="imgQualityVal">80<em>%</em></span>
+          </div>
+          <input type="range" id="imgQuality" min="10" max="100" value="80">
+          <div class="range-hints"><span>Max compression</span><span>Best quality</span></div>
+        </div>
+
+        <div class="format-block">
+          <label class="ctrl-label">Output Format</label>
+          <div class="btn-group" id="imgFormatGroup">
+            <button class="fmt-btn active" data-fmt="image/jpeg">JPEG</button>
+            <button class="fmt-btn" data-fmt="image/png">PNG</button>
+            <button class="fmt-btn" data-fmt="image/webp">WEBP</button>
+          </div>
+        </div>
+
+        <div class="resize-block">
+          <label class="ctrl-label">Resize (optional)</label>
+          <div class="resize-inputs">
+            <input type="number" id="imgWidth" placeholder="Width px" class="num-input">
+            <span class="times">×</span>
+            <input type="number" id="imgHeight" placeholder="Height px" class="num-input">
+          </div>
+        </div>
+      </div>
+
+      <button class="compress-btn" id="imgCompressBtn" onclick="compressImage()">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+          <path d="M9 2v10M5 8l4 4 4-4" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M2 14h14" stroke="white" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        Compress Image
+      </button>
+
+      <div class="result-card" id="imgResult">
+        <div class="stats-row">
+          <div class="stat"><span class="stat-label">Original</span><span class="stat-val" id="imgOrigSize">—</span></div>
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 10h12M10 4l6 6-6 6" stroke="#C62828" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <div class="stat"><span class="stat-label">Compressed</span><span class="stat-val red" id="imgCompSize">—</span></div>
+          <div class="badge" id="imgSaveBadge"></div>
+        </div>
+        <a id="imgDownload" class="dl-btn">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 2v8M4 7l4 4 4-4" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M2 13h12" stroke="white" stroke-width="1.8" stroke-linecap="round"/></svg>
+          Download
+        </a>
+      </div>
+    </section>
+
+    <!-- VIDEO TAB -->
+    <section class="tab-panel" id="tab-video">
+      <div class="panel-header">
+        <h2>Video Compression</h2>
+        <p>Reduce video file size using FFmpeg in your browser — no upload needed</p>
+      </div>
+
+      <div class="info-banner">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="#C62828" stroke-width="1.5"/><path d="M8 7v4M8 5h.01" stroke="#C62828" stroke-width="1.5" stroke-linecap="round"/></svg>
+        Uses your browser's built-in MediaRecorder. No plugins, no HTTPS required. Outputs WebM.
+      </div>
+
+      <div class="upload-zone" id="vidUploadZone">
+        <input type="file" id="videoInput" accept="video/*" hidden>
+        <div class="upload-icon">
+          <svg width="44" height="44" viewBox="0 0 44 44" fill="none">
+            <rect x="2" y="10" width="28" height="24" rx="4" stroke="#C62828" stroke-width="2.2"/>
+            <path d="M30 18l12-6v20l-12-6V18z" stroke="#C62828" stroke-width="2.2" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <p class="upload-text">Drop video here or <span class="link">browse</span></p>
+        <p class="upload-hint">MP4 · MOV · AVI · WEBM · MKV</p>
+        <div class="file-pill" id="vidFileName"></div>
+      </div>
+
+      <div class="controls-row">
+        <div class="quality-block">
+          <div class="quality-label">
+            <span>Quality (CRF — lower = better)</span>
+            <span class="qval" id="vidCrfVal">28<em> CRF</em></span>
+          </div>
+          <input type="range" id="vidCrf" min="18" max="51" value="28">
+          <div class="range-hints"><span>Best quality (18)</span><span>Smallest (51)</span></div>
+        </div>
+
+        <div class="format-block">
+          <label class="ctrl-label">Resolution</label>
+          <div class="btn-group" id="vidResGroup">
+            <button class="fmt-btn active" data-res="original">Original</button>
+            <button class="fmt-btn" data-res="1280:720">720p</button>
+            <button class="fmt-btn" data-res="854:480">480p</button>
+            <button class="fmt-btn" data-res="640:360">360p</button>
+          </div>
+        </div>
+      </div>
+
+      <button class="compress-btn" id="vidCompressBtn" onclick="compressVideo()">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+          <path d="M9 2v10M5 8l4 4 4-4" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M2 14h14" stroke="white" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        Compress Video
+      </button>
+
+      <div class="progress-wrap" id="vidProgress">
+        <div class="progress-bar"><div class="progress-fill" id="vidProgressFill"></div></div>
+        <p class="progress-text" id="vidProgressText">Loading FFmpeg…</p>
+      </div>
+
+      <div class="result-card" id="vidResult">
+        <div class="stats-row">
+          <div class="stat"><span class="stat-label">Original</span><span class="stat-val" id="vidOrigSize">—</span></div>
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 10h12M10 4l6 6-6 6" stroke="#C62828" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <div class="stat"><span class="stat-label">Compressed</span><span class="stat-val red" id="vidCompSize">—</span></div>
+          <div class="badge" id="vidSaveBadge"></div>
+        </div>
+        <a id="vidDownload" class="dl-btn">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 2v8M4 7l4 4 4-4" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M2 13h12" stroke="white" stroke-width="1.8" stroke-linecap="round"/></svg>
+          Download Video
+        </a>
+      </div>
+    </section>
+
+    <!-- PDF TAB -->
+    <section class="tab-panel" id="tab-pdf">
+      <div class="panel-header">
+        <h2>PDF Compression</h2>
+        <p>Reduce PDF file size by downsampling embedded images</p>
+      </div>
+
+      <div class="upload-zone" id="pdfUploadZone">
+        <input type="file" id="pdfInput" accept="application/pdf" hidden>
+        <div class="upload-icon">
+          <svg width="44" height="44" viewBox="0 0 44 44" fill="none">
+            <path d="M10 4h16l12 12v24a2 2 0 01-2 2H10a2 2 0 01-2-2V6a2 2 0 012-2z" stroke="#C62828" stroke-width="2.2"/>
+            <path d="M26 4v12h12" stroke="#C62828" stroke-width="2.2" stroke-linecap="round"/>
+            <path d="M14 24h16M14 30h10" stroke="#C62828" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <p class="upload-text">Drop PDF here or <span class="link">browse</span></p>
+        <p class="upload-hint">PDF files only</p>
+        <div class="file-pill" id="pdfFileName"></div>
+      </div>
+
+      <div class="controls-row">
+        <div class="quality-block">
+          <div class="quality-label">
+            <span>Image Quality in PDF</span>
+            <span class="qval" id="pdfQualityVal">60<em>%</em></span>
+          </div>
+          <input type="range" id="pdfQuality" min="10" max="90" value="60">
+          <div class="range-hints"><span>Smallest file</span><span>Sharper images</span></div>
+        </div>
+
+        <div class="format-block">
+          <label class="ctrl-label">Compression Mode</label>
+          <div class="btn-group" id="pdfModeGroup">
+            <button class="fmt-btn active" data-mode="balanced">Balanced</button>
+            <button class="fmt-btn" data-mode="aggressive">Aggressive</button>
+            <button class="fmt-btn" data-mode="lossless">Lossless</button>
+          </div>
+        </div>
+      </div>
+
+      <button class="compress-btn" id="pdfCompressBtn" onclick="compressPDF()">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+          <path d="M9 2v10M5 8l4 4 4-4" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M2 14h14" stroke="white" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        Compress PDF
+      </button>
+
+      <div class="progress-wrap" id="pdfProgress">
+        <div class="progress-bar"><div class="progress-fill" id="pdfProgressFill"></div></div>
+        <p class="progress-text" id="pdfProgressText">Processing pages…</p>
+      </div>
+
+      <div class="result-card" id="pdfResult">
+        <div class="stats-row">
+          <div class="stat"><span class="stat-label">Original</span><span class="stat-val" id="pdfOrigSize">—</span></div>
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 10h12M10 4l6 6-6 6" stroke="#C62828" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <div class="stat"><span class="stat-label">Compressed</span><span class="stat-val red" id="pdfCompSize">—</span></div>
+          <div class="badge" id="pdfSaveBadge"></div>
+        </div>
+        <a id="pdfDownload" class="dl-btn">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 2v8M4 7l4 4 4-4" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M2 13h12" stroke="white" stroke-width="1.8" stroke-linecap="round"/></svg>
+          Download PDF
+        </a>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
